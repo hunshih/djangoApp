@@ -15,10 +15,13 @@ Including another URLconf
 """
 import debug_toolbar
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from lawyers import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('lawyers/', include('lawyers.urls')), # say, lawyers/hello
     path('__debug__/', include('debug_toolbar.urls')),
+    re_path(r'^api/lawyers/$', views.lawyers_list),
+    re_path(r'^api/lawyers/([0-9])$', views.lawyers_detail),
 ]
